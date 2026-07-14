@@ -9,39 +9,98 @@ import UIKit
 
 class MainViewController: UIViewController {
 
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
-    @IBOutlet weak var funFactLabel: UILabel!
-    
-    private var apiManager: FunFactAPIManagerProtocol?
+    private let pageViewController = UIPageViewController(
+        transitionStyle: .scroll,
+        navigationOrientation: .horizontal
+    )
+    private let pageControl = UIPageControl()
+    private var pages: [JokeCategoryViewController] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        spinner.isHidden = false
-        setUpFunFactManager(param: "")
-        spinner.isHidden = true
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .systemBackground
+        setupPages()
+        setupPageViewController()
+        setupPageControl()
     }
-    @IBAction func didTapRandomFunFact(_ sender: Any) {
-        spinner.isHidden = false
-        setUpFunFactManager(param: "")
-        spinner.isHidden = true
+
+    private func setupPages() {
+        pages = [
+            JokeCategoryViewController(category: .random),
+            JokeCategoryViewController(category: .career),
+            JokeCategoryViewController(category: .animal)
+        ]
     }
-    @IBAction func didTapAnimalJokes(_ sender: Any) {
-        spinner.isHidden = false
-        setUpFunFactManager(param: "category=animal")
-        spinner.isHidden = true
-    }
-    
-    @IBAction func didTapCareerJokes(_ sender: Any) {
-        spinner.isHidden = false
-        setUpFunFactManager(param: "category=career")
-        spinner.isHidden = true
-    }
-    private func setUpFunFactManager(param: String) {
-        apiManager = FunFactAPIManager(param: param)
-        apiManager?.fetchFunFact {  funfact in
-            self.funFactLabel.text = funfact.value
-            
+
+    private func setupPageViewController() {
+        pageViewController.dataSource = self
+        pageViewController.delegate = self
+
+        addChild(pageViewController)
+        view.addSubview(pageViewController.view)
+        pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pageViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        pageViewController.didMove(toParent: self)
+
+        if let first = pages.first {
+            pageViewController.setViewControllers([first], direction: .forward, animated: false)
         }
+    }
+
+    private func setupPageControl() {
+        pageControl.numberOfPages = pages.count
+        pageControl.currentPage = 0
+        pageControl.currentPageIndicatorTintColor = .label
+        pageControl.pageIndicatorTintColor = .systemGray3
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(pageControl)
+
+        NSLayoutConstraint.activate([
+            pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            pageControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
+        ])
     }
 }
 
+extension MainViewController: UIPageViewControllerDataSource {
+
+    func pageViewController(
+        _ pageViewController: UIPageViewController,
+        viewControllerBefore viewController: UIViewController
+    ) -> UIViewController? {
+        guard let current = viewController as? JokeCategoryViewController,
+              let index = pages.firstIndex(where: { $0 === current }),
+              index > 0 else { return nil }
+        return pages[index - 1]
+    }
+
+    func pageViewController(
+        _ pageViewController: UIPageViewController,
+        viewControllerAfter viewController: UIViewController
+    ) -> UIViewController? {
+        guard let current = viewController as? JokeCategoryViewController,
+              let index = pages.firstIndex(where: { $0 === current }),
+              index < pages.count - 1 else { return nil }
+        return pages[index + 1]
+    }
+}
+
+extension MainViewController: UIPageViewControllerDelegate {
+
+    func pageViewController(
+        _ pageViewController: UIPageViewController,
+        didFinishAnimating finished: Bool,
+        previousViewControllers: [UIViewController],
+        transitionCompleted completed: Bool
+    ) {
+        guard completed,
+              let visible = pageViewController.viewControllers?.first as? JokeCategoryViewController,
+              let index = pages.firstIndex(where: { $0 === visible }) else { return }
+        pageControl.currentPage = index
+    }
+}
