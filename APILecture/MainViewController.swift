@@ -15,7 +15,9 @@ class MainViewController: UIViewController {
     private var apiManager: FunFactAPIManagerProtocol?
     override func viewDidLoad() {
         super.viewDidLoad()
+        spinner.isHidden = false
         setUpFunFactManager(param: "")
+        spinner.isHidden = true
         // Do any additional setup after loading the view.
     }
     @IBAction func didTapRandomFunFact(_ sender: Any) {
