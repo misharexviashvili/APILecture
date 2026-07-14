@@ -33,11 +33,29 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8iF-Nq-sYR">
                                 <rect key="frame" x="24" y="773" width="345" height="35"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Button">
+                                <buttonConfiguration key="configuration" style="filled" title="Random">
                                     <color key="baseBackgroundColor" red="1" green="0.55294117649999996" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="didTapRandomFunFact:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ohr-kg-vsx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Pg-h1-pcE">
+                                <rect key="frame" x="24" y="714" width="345" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Career jokes">
+                                    <color key="baseBackgroundColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="didTapCareerJokes:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EWu-Wl-Isz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ja6-Tp-HTk">
+                                <rect key="frame" x="24" y="655" width="345" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Animal jokes"/>
+                                <connections>
+                                    <action selector="didTapAnimalJokes:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QE9-tM-kPl"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -46,12 +64,18 @@
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pe0-i1-2L4" secondAttribute="trailing" constant="24" id="48C-I7-hTL"/>
                             <constraint firstItem="8iF-Nq-sYR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="4hu-wq-ypG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ja6-Tp-HTk" secondAttribute="trailing" constant="24" id="4sO-oP-Ivd"/>
                             <constraint firstItem="08d-3A-BKi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5a4-3e-gXa"/>
+                            <constraint firstItem="8iF-Nq-sYR" firstAttribute="top" secondItem="6Pg-h1-pcE" secondAttribute="bottom" constant="24" id="6wp-PR-o1f"/>
+                            <constraint firstItem="6Pg-h1-pcE" firstAttribute="top" secondItem="Ja6-Tp-HTk" secondAttribute="bottom" constant="24" id="9iI-O3-Zm4"/>
+                            <constraint firstItem="Ja6-Tp-HTk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="BoK-9E-gZe"/>
+                            <constraint firstItem="6Pg-h1-pcE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="HDS-cD-MUm"/>
                             <constraint firstItem="08d-3A-BKi" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="I50-o8-pZU"/>
                             <constraint firstItem="pe0-i1-2L4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="L4X-2Y-0cK"/>
                             <constraint firstItem="pe0-i1-2L4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="NGS-U8-5KF"/>
                             <constraint firstItem="8iF-Nq-sYR" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="24" id="dKb-Vg-azG"/>
                             <constraint firstItem="pe0-i1-2L4" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="fxC-h5-oy2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6Pg-h1-pcE" secondAttribute="trailing" constant="24" id="g8Q-61-3Kj"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8iF-Nq-sYR" secondAttribute="trailing" constant="24" id="meS-mI-CP9"/>
                         </constraints>
                     </view>

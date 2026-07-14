@@ -12,8 +12,9 @@ protocol FunFactAPIManagerProtocol {
 }
 
 class FunFactAPIManager: FunFactAPIManagerProtocol {
+    var param: String?
     func fetchFunFact(completion: @escaping (FunFact) -> Void) {
-        guard let url = URL(string: "https://api.chucknorris.io/jokes/random") else { return }
+        guard let url = URL(string: "https://api.chucknorris.io/jokes/random?\(param ?? "")") else { return }
         
         URLSession.shared.dataTask(with: url) {data, _, error in
             if let error {
@@ -34,5 +35,8 @@ class FunFactAPIManager: FunFactAPIManagerProtocol {
               print(error)
             }
         }.resume()
+    }
+    init(param: String) {
+        self.param = param
     }
 }
